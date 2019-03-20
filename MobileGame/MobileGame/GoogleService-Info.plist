@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>301057065926-5adjfd4ohbrj52dvu3qe1ako0ffies6j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.301057065926-5adjfd4ohbrj52dvu3qe1ako0ffies6j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB2yJ-MQHmXvaAVe6LKvtCouVWsx-I2hHY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>301057065926</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Fivepiece.MobileGame</string>
+	<key>PROJECT_ID</key>
+	<string>mobilegame-87a03</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mobilegame-87a03.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:301057065926:ios:07ced285343f349a</string>
+	<key>DATABASE_URL</key>
+	<string>https://mobilegame-87a03.firebaseio.com</string>
+</dict>
+</plist>
