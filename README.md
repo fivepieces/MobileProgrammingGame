@@ -1,13 +1,14 @@
 # MobileProgrammingGame
-The purpose of our app is to allow spectators to join in on our 2 player game and give them just enough influence to possibly change the outcome of the game. Our app will provide a map of the dungeon that gets updated in real time as the dungeon master creates rooms on the fly. The person who is using the companion app will be able to see when there is an event happening in a room and will be given the option to help the hero or the dungeon master. If he selects the dungeon master the game will spawn in a few extra enemies to help him out, if he selects the hero we will give him a boost in damage or speed.
+This app will be a space shooter game that has the player going against rogue aliens and asteroids in a top down shooter. This game will include gmail authentication, leaderboards for scores, push notifications to remind people when they have more lives to play, and finally some ad banners to make some ad revenue. 
 
 
 #*Areas of Interest:*
 
 
-        *Push notifications : Get notified when a new game starts.
+        *Push notifications : Get reminders to come play, or that you have more lives available
 	*Firebase: Sending and Updating game data through firebase.
-        *Achievements & || Leaderboards: using Gameplay Kit.
+        *Leaderboards: using Gameplay Kit.
+	*Ad Banners: to make some ad revenue
         
 
 
@@ -18,8 +19,7 @@ The purpose of our app is to allow spectators to join in on our 2 player game an
 
 
 #*MOCK SCREENS:*
-![LoadingScreen](https://github.com/fivepieces/MobileProgramming/Images/MatchMaking.png)
-![MapScreen](https://github.com/fivepieces/MobileProgramming/Images/MapScreen.png)
+![GameScreen](https://github.com/fivepieces/MobileProgramming/Images/MatchMaking.png)
 
 
 
@@ -33,7 +33,7 @@ The purpose of our app is to allow spectators to join in on our 2 player game an
 #*Value of the app for the user:*
 
 
-It allows the user to interact with the game to change up the normal gameplay that comes with our vanilla game. It gives the user a choice of which player he wants to help if he wants to, otherwise the player can just observe the map and see what is happening in the game.
+This app will be valuable for the user in the sense that he will be able to play a game whenever he wants. It's a simple videogame similar to space invaders. It includes a leaderboard for semi-competitive play and google authentication to keep accounts secure
 
 
 
@@ -41,7 +41,7 @@ It allows the user to interact with the game to change up the normal gameplay th
 #*Typical path:*
 
 
-The user is met with a menu screen in which he can join the game. Once in the game the user can see an overview of the map, there will be rooms that are highlighted in different colours which will indicate there is something happening in the room. The user can click on that part of the map and he will then have the option to help the player of his choice.
+Upon startup, the user will be asked to authenticate through gmail, the user is then met with a menu screen in which he can join the game. Once in game the user will play until he runs out of lives, or beats the game. Once the game is over the user will be presented with the highscores and an option to play again if possible.
 
 
 
