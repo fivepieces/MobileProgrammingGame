@@ -19,7 +19,7 @@ This app will be a space shooter game that has the player going against rogue al
 
 
 #*MOCK SCREENS:*
-![GameScreen](https://github.com/fivepieces/MobileProgrammingGame/Images/PlayScreen.png)
+![GameScreen](https://github.com/fivepieces/MobileProgrammingGame/Images/GameScreen.png)
 
 
 
