@@ -8,14 +8,19 @@
 
 import SpriteKit
 import GameplayKit
+import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var starfield:SKEmitterNode!
     var player:SKSpriteNode!
-    
     var scoreLabel:SKLabelNode!
     var possibleAliens = ["alien", "alien2", "alien3"]
+    var gameTimer:Timer!
+    var xAccel:CGFloat = 0
+    
+    
+    let movementController = CMMotionManager()
     //make it so each alien and torpedo is unique
     let alienCategory:UInt32 = 0x1 << 1
     let photonTorpedoCategory:UInt32 = 0x1 << 0
@@ -25,10 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             scoreLabel.text = "Score: \(score)"
         }
     }
-    
-    var gameTimer:Timer!
-    
-    
+   
     override func didMove(to view: SKView) {
         //Assign the starfield to be the particle effects that were created
         starfield = SKEmitterNode(fileNamed: "Starfield")
@@ -48,6 +50,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player = SKSpriteNode(imageNamed: "shuttle")
         player.position = CGPoint(x: 0, y: -600)
         self.addChild(player)
+        
+        movementController.accelerometerUpdateInterval = 0.2
+        movementController.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
+            if let accelerometerData = data {
+                let acceleration = accelerometerData.acceleration
+                self.xAccel = CGFloat(acceleration.x) * 0.75 + self.xAccel * 0.25
+            }
+        }
         
         //add properties to the world
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -124,6 +134,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         actionArray.append(SKAction.removeFromParent())
         torpedoNode.run(SKAction.sequence(actionArray))
     }
+    
+    
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        var firstContact:SKPhysicsBody
+        var secondContact:SKPhysicsBody
+        
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstContact = contact.bodyA
+            secondContact = contact.bodyB
+        }
+        else{
+            firstContact = contact.bodyB
+            secondContact = contact.bodyA
+        }
+        
+        //Compare bitwise which of the category bitmasks are identical
+        if (firstContact.categoryBitMask & photonTorpedoCategory) != 0 && (secondContact.categoryBitMask & alienCategory) != 0{
+            //torpedo did collide with alien
+            weaponHitAlien(torpedoNode: firstContact.node as! SKSpriteNode, alienNode: secondContact.node as! SKSpriteNode)
+        }
+    }
+    
+    override func didSimulatePhysics() {
+        player.position.x += xAccel * 40
+        
+        
+    }
+    
+    func weaponHitAlien(torpedoNode:SKSpriteNode, alienNode:SKSpriteNode)
+    {
+        let explode = SKEmitterNode(fileNamed: "Explosion")!
+        explode.position = alienNode.position
+        self.addChild(explode)
+        
+        self.run(SKAction.playSoundFileNamed("explosion.mp3", waitForCompletion: false))
+        
+        torpedoNode.removeFromParent()
+        alienNode.removeFromParent()
+        
+        self.run(SKAction.wait(forDuration: 2)){
+            explode.removeFromParent()
+        }
+        
+        score += 5
+        
+    }
+    
+    
     
     override func update( _ currentTime: TimeInterval) {
         // Called before each frame is rendered
