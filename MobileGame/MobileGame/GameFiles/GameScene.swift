@@ -17,7 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var scoreLabel:SKLabelNode!
     var possibleAliens = ["alien", "alien2", "alien3"]
     var gameTimer:Timer!
-    var xAccel:CGFloat = 0
+    
+    var livesArray:[SKSpriteNode]!
     
     
     let movementController = CMMotionManager()
@@ -32,6 +33,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
    
     override func didMove(to view: SKView) {
+        
+        addLives()
+        
         //Assign the starfield to be the particle effects that were created
         starfield = SKEmitterNode(fileNamed: "Starfield")
         
@@ -48,16 +52,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         //initialize the player
         player = SKSpriteNode(imageNamed: "shuttle")
-        player.position = CGPoint(x: 0, y: -600)
+        player.position = CGPoint(x: 0, y: -325)
         self.addChild(player)
-        
-        movementController.accelerometerUpdateInterval = 0.2
-        movementController.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
-            if let accelerometerData = data {
-                let acceleration = accelerometerData.acceleration
-                self.xAccel = CGFloat(acceleration.x) * 0.75 + self.xAccel * 0.25
-            }
-        }
+
         
         //add properties to the world
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -65,7 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         //set up the score text
         scoreLabel = SKLabelNode(text: "Score: 0")
-        scoreLabel.position = CGPoint(x: -300, y: 600)
+        scoreLabel.position = CGPoint(x: -110, y: 332)
         scoreLabel.fontName = "AmericanTypewriter-Bold"
         scoreLabel.fontSize = 36
         scoreLabel.fontColor = UIColor.white
@@ -78,11 +75,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
     }
     
+    func addLives(){
+        livesArray = [SKSpriteNode]()
+        
+        for live in 1 ... 3 {
+            let liveNode = SKSpriteNode(imageNamed: "shuttle")
+            
+            liveNode.position = CGPoint(x: 200 - CGFloat(4 - live) * liveNode.size.width, y: 338)
+            
+            self.addChild(liveNode)
+            livesArray.append(liveNode)
+        }
+    }
+    
+    
+    
+    //Function for adding the Aliens
     @objc func addAlien(){
         possibleAliens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: possibleAliens) as! [String]
         
         let alien = SKSpriteNode(imageNamed: possibleAliens[0])
-        let randomAlienPosition = GKRandomDistribution(lowestValue: -400, highestValue: 400)
+        let randomAlienPosition = GKRandomDistribution(lowestValue: -183, highestValue: 180)
         let position = CGFloat(randomAlienPosition.nextInt())
         
         alien.position = CGPoint(x: position, y: self.frame.size.height + alien.size.height)
@@ -104,11 +117,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         alien.run(SKAction.sequence(actionArray))
     }
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            player.position.x = location.x
+            player.position.y = location.y
+            
+            print("x: \(player.position.x), y:\(player.position.y)")
+        }
+    }
+    
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         fireTorpedo()
     }
     
-    
+    //Function for firing the torpedo
     func fireTorpedo(){
         self.run(SKAction.playSoundFileNamed("torpedo.mp3", waitForCompletion: false))
         
@@ -155,12 +179,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             //torpedo did collide with alien
             weaponHitAlien(torpedoNode: firstContact.node as! SKSpriteNode, alienNode: secondContact.node as! SKSpriteNode)
         }
-    }
-    
-    override func didSimulatePhysics() {
-        player.position.x += xAccel * 40
-        
-        
     }
     
     func weaponHitAlien(torpedoNode:SKSpriteNode, alienNode:SKSpriteNode)
