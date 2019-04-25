@@ -19,6 +19,7 @@
 		3D30F36722419B2700594F10 /* MobileGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30F36622419B2700594F10 /* MobileGameTests.swift */; };
 		3D30F37222419B2700594F10 /* MobileGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30F37122419B2700594F10 /* MobileGameUITests.swift */; };
 		3D30F3842241B43800594F10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D30F3832241B43800594F10 /* GoogleService-Info.plist */; };
+		3D46C7D0227273090062DBA6 /* Viewcontroller2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D46C7CF227273090062DBA6 /* Viewcontroller2.swift */; };
 		3D95BCF4226149AA00B89231 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3D95BCF3226149AA00B89231 /* MenuScene.sks */; };
 		3D95BCF622614CBE00B89231 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D95BCF522614CBE00B89231 /* MenuScene.swift */; };
 		3DF96E712241D02600B69832 /* torpedo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3DF96E6F2241D02600B69832 /* torpedo.mp3 */; };
@@ -68,6 +69,7 @@
 		3D30F37122419B2700594F10 /* MobileGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileGameUITests.swift; sourceTree = "<group>"; };
 		3D30F37322419B2700594F10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D30F3832241B43800594F10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3D46C7CF227273090062DBA6 /* Viewcontroller2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewcontroller2.swift; sourceTree = "<group>"; };
 		3D95BCF3226149AA00B89231 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MenuScene.sks; path = GameFiles/MenuScene.sks; sourceTree = "<group>"; };
 		3D95BCF522614CBE00B89231 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		3DF96E6F2241D02600B69832 /* torpedo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = torpedo.mp3; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				3D30F34B22419B2500594F10 /* AppDelegate.swift */,
 				3D30F34F22419B2500594F10 /* Actions.sks */,
 				3D30F35322419B2500594F10 /* GameViewController.swift */,
+				3D46C7CF227273090062DBA6 /* Viewcontroller2.swift */,
 				3D30F35522419B2500594F10 /* Main.storyboard */,
 				3D30F35822419B2600594F10 /* Assets.xcassets */,
 				3D30F35A22419B2600594F10 /* LaunchScreen.storyboard */,
@@ -363,6 +366,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileGame/Pods-MobileGame-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -370,6 +374,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -455,6 +460,7 @@
 				3D95BCF622614CBE00B89231 /* MenuScene.swift in Sources */,
 				3D30F35422419B2500594F10 /* GameViewController.swift in Sources */,
 				3D30F34C22419B2500594F10 /* AppDelegate.swift in Sources */,
+				3D46C7D0227273090062DBA6 /* Viewcontroller2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

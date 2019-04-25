@@ -6,8 +6,9 @@ target 'MobileGame' do
   use_frameworks!
 
   # Pods for MobileGame
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
 
-  pod 'Firebase/Core'
 
 
   target 'MobileGameTests' do
