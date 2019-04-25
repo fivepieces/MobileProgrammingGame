@@ -15,7 +15,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var starfield:SKEmitterNode!
     var player:SKSpriteNode!
     var scoreLabel:SKLabelNode!
-    var possibleAliens = ["alien", "alien2", "alien3"]
+    var possibleAliens = ["alienship1", "alien2", "alienship3"]
     var gameTimer:Timer!
     
     var livesArray:[SKSpriteNode]!
@@ -25,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     //make it so each alien and torpedo is unique
     let alienCategory:UInt32 = 0x1 << 1
     let photonTorpedoCategory:UInt32 = 0x1 << 0
+    let playerCategory:UInt32 = 0x1 << 2
     
     var score:Int = 0 {
         didSet{
@@ -34,6 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
    
     override func didMove(to view: SKView) {
         
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addLives()
         
         //Assign the starfield to be the particle effects that were created
@@ -43,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         starfield.position = CGPoint(x: 0, y: 1472)
         
         //advance time for the particle effects so the screen starts in full effect
-        starfield.advanceSimulationTime(10)
+        starfield.advanceSimulationTime(40)
         
         //make it so that the starfield is always in the background
         self.addChild(starfield)
@@ -51,7 +53,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         
         //initialize the player
-        player = SKSpriteNode(imageNamed: "shuttle")
+        player = SKSpriteNode(imageNamed: "spaceship")
+        player.anchorPoint = CGPoint(x: 0.5, y: 0.2)
         player.position = CGPoint(x: 0, y: -325)
         self.addChild(player)
 
@@ -79,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         livesArray = [SKSpriteNode]()
         
         for live in 1 ... 3 {
-            let liveNode = SKSpriteNode(imageNamed: "shuttle")
+            let liveNode = SKSpriteNode(imageNamed: "spaceship")
             
             liveNode.position = CGPoint(x: 200 - CGFloat(4 - live) * liveNode.size.width, y: 338)
             
@@ -113,6 +116,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         var actionArray = [SKAction]()
         actionArray.append(SKAction.move(to: CGPoint(x: position, y: -600), duration: animationDuration))
+        actionArray.append(SKAction.run{
+            if self.livesArray.count > 0 {
+                let liveNode = self.livesArray.first
+                liveNode!.removeFromParent()
+                self.livesArray.removeFirst();
+            }})
+        
         actionArray.append(SKAction.removeFromParent())
         alien.run(SKAction.sequence(actionArray))
     }
@@ -179,6 +189,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             //torpedo did collide with alien
             weaponHitAlien(torpedoNode: firstContact.node as! SKSpriteNode, alienNode: secondContact.node as! SKSpriteNode)
         }
+        
+        //if (firstContact.categoryBitMask & playerCategory) != 0 && (secondContact.categoryBitMask & alienCategory) != 0{
+            //torpedo did collide with alien
+           // alienhitplayer(playerNode: firstContact.node as! SKSpriteNode, alienNode: secondContact.node as! SKSpriteNode)
+        //}
     }
     
     func weaponHitAlien(torpedoNode:SKSpriteNode, alienNode:SKSpriteNode)
@@ -200,9 +215,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
     }
     
+    func alienhitplayer(playerNode:SKSpriteNode, alienNode:SKSpriteNode)
+    {
+        
+        alienNode.removeFromParent()
+        score -= 5
+        
+        if self.livesArray.count > 0 {
+            let liveNode = self.livesArray.first
+            liveNode!.removeFromParent()
+            self.livesArray.removeFirst();
+        }
+    }
+    
     
     
     override func update( _ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if self.livesArray.count < 0 {
+            print("we out of lives")
+            let scene = SKScene(fileNamed: "MenuScene")!
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                
+                // Present the scene
+                self.view?.presentScene(scene)
+        
     }
+    
+    
+}
 }
